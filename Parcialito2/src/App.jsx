@@ -1,26 +1,47 @@
-import { useContext, useState } from "react";
-import "./App.css";
-import CardPost from "./componentes/CardPost";
-import { PostContext } from "./context/PostContext";
+import React, { useState, useEffect } from "react";
+import { useFetch } from "./hooks/useFetch";
+import postReducers from "./useReducers/postsReducers";
 
 function App() {
-	const { post } = useContext(PostContext);
-	const { postVacio, listPost } = usePost();
+	const [posts, setPosts] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
-	// const listaPost= (event) => (
-	// event.prevent.default()
-	// listPost(Post)
-	// )
+	useEffect(() => {
+		setLoading(true);
 
-	//[count, setCount] = useState(0);
+		fetch("https://jsonplaceholder.typicode.com/posts")
+			.then((response) => response.json())
+			.then((posts) => {
+				setPosts(posts);
+				setLoading(false);
+			})
+			.catch((error) => {
+				setError(error);
+				setLoading(false);
+			});
+	}, []);
+
+	if (loading) {
+		return <p>Loading...</p>;
+	}
+
+	if (error) {
+		return <p>Error: {error.message}</p>;
+	}
 
 	return (
-		<>
-			<div className="App">
-				<h1>Listado</h1>
-			</div>
-			;
-		</>
+		<div>
+			<h1>Posts</h1>
+			<ul>
+				{posts.map((post) => (
+					<li key={post.id}>
+						<h2>{post.title}</h2>
+						<p>{post.body}</p>
+					</li>
+				))}
+			</ul>
+		</div>
 	);
 }
 
