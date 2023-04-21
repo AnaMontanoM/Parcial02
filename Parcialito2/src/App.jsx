@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Loading from "./componentes/Loading/Loading";
 import { useFetch } from "./hooks/useFetch";
-import postReducers from "./useReducers/postsReducers";
+import PostReducers from "./useReducers/postsReducers";
 
 function App() {
 	const [posts, setPosts] = useState([]);
@@ -23,7 +24,7 @@ function App() {
 	}, []);
 
 	if (loading) {
-		return <p>Loading...</p>;
+		return <p>Esperando ando...</p>;
 	}
 
 	if (error) {

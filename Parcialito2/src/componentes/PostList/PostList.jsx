@@ -5,7 +5,7 @@ function PostList() {
 	const { posts, loading, error } = useContext(PostsContext);
 
 	if (loading) {
-		return <p>Loading...</p>;
+		return <p>Esperando ando</p>;
 	}
 
 	if (error) {

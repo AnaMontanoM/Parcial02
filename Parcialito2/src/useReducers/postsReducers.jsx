@@ -4,7 +4,7 @@ const initialState = {
 	posts: [],
 };
 
-const postReducers = (state = initialState, action) => {
+const PostReducers = (state = initialState, action) => {
 	switch (action.type) {
 		case "FETCH_POSTS_REQUEST":
 			return {
@@ -29,4 +29,4 @@ const postReducers = (state = initialState, action) => {
 	}
 };
 
-export default postReducers;
+export default PostReducers;
